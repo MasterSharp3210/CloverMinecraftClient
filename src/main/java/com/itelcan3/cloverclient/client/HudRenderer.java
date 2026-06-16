@@ -40,16 +40,15 @@ public class HudRenderer extends Gui {
         int scaledX = (int) (x / hudScale);
         int scaledY = (int) (y / hudScale);
 
-        mc.fontRendererObj.drawString(hudText, scaledX, scaledY, hudColor);
+        mc.fontRendererObj.drawString("\u00A7l" + hudText, scaledX, scaledY, hudColor);
 
         scaledY += 10;
-        String riga2 = "FPS: \u00A7f" + Minecraft.getDebugFPS();
-        mc.fontRendererObj.drawString(riga2, scaledX, scaledY, hudColor);
+        String FPSLabel = "FPS: \u00A7f" + Minecraft.getDebugFPS();
+        mc.fontRendererObj.drawString(FPSLabel, scaledX, scaledY, hudColor);
 
-        // Riga 3: Player con Bianco in Unicode
         scaledY += 10;
-        String riga3 = "Player: \u00A7f" + mc.thePlayer.getGameProfile().getName();
-        mc.fontRendererObj.drawString(riga3, scaledX, scaledY, hudColor);
+        String PlayerLabel = "Player: \u00A7f" + mc.thePlayer.getGameProfile().getName();
+        mc.fontRendererObj.drawString(PlayerLabel, scaledX, scaledY, hudColor);
 
         GlStateManager.popMatrix();
     }
