@@ -76,7 +76,7 @@ public class CommandHud extends CommandBase {
                 HudRenderer.hudColor = 0x00AAAA;
                 chatColorCode = "\u00A73";
             } else if (color.equals("prismarine")) {
-                HudRenderer.hudColor = 0x064D41;
+                HudRenderer.hudColor = 0x07614A;
                 chatColorCode = "\u00A73";
             }else if (color.equals("yellow")) {
                 HudRenderer.hudColor = 0xFFFF55;
