@@ -13,7 +13,6 @@ public class CapeHandler {
 
     public static void initFolder() {
 
-        System.out.println("CloverClient > Cape Initialization complete.");
     }
 
     public static void apply() {
@@ -32,7 +31,7 @@ public class CapeHandler {
                 player.getDataWatcher().updateObject(10, (byte) 127);
 
             } catch (Exception e) {
-                System.out.println("CloverClient > An error occured during load the cape.");
+                
             }
         }
     }

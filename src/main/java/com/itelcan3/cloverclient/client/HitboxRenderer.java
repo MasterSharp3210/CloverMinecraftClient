@@ -77,9 +77,6 @@ public class HitboxRenderer {
                 
                 float halfHeight = height / 2.0f;
 
-                // REGOLAZIONE DI PRECISIONE:
-                // Portando il moltiplicatore a 0.92f, allunghiamo il box verso il basso 
-                // quel tanto che basta per far rientrare perfettamente i piedi senza toccare la testa.
                 float boxMinY = -(halfHeight * 0.92f); 
                 float boxMaxY = halfHeight;  
                 
