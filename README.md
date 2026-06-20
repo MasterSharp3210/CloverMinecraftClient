@@ -11,3 +11,6 @@ Infine una cosa che vorrei aggiungere è che non mi sono mai trovato così male 
 
 # La fine
 Dopo il commento *Che Dio ci aiuti* fatto in precedenza sulla repository della mod, e dopo tanti scleri sono riuscito a fixare la mod. **Ora funziona** per tanto se volete utilizzarla, andate nel vostro .minecraft e mods, sposta qui la mod Clover client.jar **ATTENZIONE: RICHIEDE FORGE 1.8.9 & FUNZIONA CON OPTIFINE!**
+
+# UPDATE
+Nella mia nuova versione della mod ho incluso uno hud personalizzabile e delle hitbox legit 3D e 2D
