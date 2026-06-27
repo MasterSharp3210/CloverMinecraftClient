@@ -57,31 +57,41 @@ public class HitboxRenderer {
             double y = player.lastTickPosY + (player.posY - player.lastTickPosY) * event.partialTicks - renderY;
             double z = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * event.partialTicks - renderZ;
 
-            float paddingMultiplier = 1.4f; 
+            float paddingMultiplier = 1.7f; 
             float width = (player.width / 2.0f) * paddingMultiplier;
             float height = player.height * 1.20f;
 
             if (hitboxMode.equalsIgnoreCase("3d")) {
                 AxisAlignedBB box = new AxisAlignedBB(x - width, y, z - width, x + width, y + height, z + width);
                 draw3DBox(box, r, g, b, 0.4f);
+
             } else if (hitboxMode.equalsIgnoreCase("2d")) {
+
                 GlStateManager.pushMatrix();
                 
                 GlStateManager.translate(x, y + (player.height / 2.0f), z);
-                
+
                 GlStateManager.rotate(-renderManager.playerViewY, 0.0f, 1.0f, 0.0f);
                 GlStateManager.rotate(renderManager.playerViewX, 1.0f, 0.0f, 0.0f);
 
-                float boxMinX = -width;
-                float boxMaxX = width;
-                
-                float halfHeight = height / 2.0f;
+                float pitchRad = (float) Math.toRadians(renderManager.playerViewX);
+                float cosPitch = Math.abs((float) Math.cos(pitchRad));
+                float sinPitch = Math.abs((float) Math.sin(pitchRad));
 
-                float boxMinY = -(halfHeight * 0.92f); 
-                float boxMaxY = halfHeight;  
-                
-                draw2DBox(boxMinX, boxMinY, boxMaxX, boxMaxY, r, g, b, 0.4f);
-                
+                float dynamicWidth = width;
+                float dynamicHeightMin = -( (height / 2.0f) * cosPitch + width * sinPitch );
+                float dynamicHeightMax = (height / 2.0f) * cosPitch + width * sinPitch;
+
+                Tessellator tessellator = Tessellator.getInstance();
+                WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+
+                worldrenderer.begin(GL11.GL_LINE_LOOP, DefaultVertexFormats.POSITION_COLOR);
+                worldrenderer.pos(-dynamicWidth, dynamicHeightMin, 0.0D).color(r, g, b, 0.4f).endVertex();
+                worldrenderer.pos(dynamicWidth, dynamicHeightMin, 0.0D).color(r, g, b, 0.4f).endVertex();
+                worldrenderer.pos(dynamicWidth, dynamicHeightMax, 0.0D).color(r, g, b, 0.4f).endVertex();
+                worldrenderer.pos(-dynamicWidth, dynamicHeightMax, 0.0D).color(r, g, b, 0.4f).endVertex();
+                tessellator.draw();
+
                 GlStateManager.popMatrix();
             }
         }
@@ -120,19 +130,6 @@ public class HitboxRenderer {
         worldrenderer.pos(boundingBox.maxX, boundingBox.maxY, boundingBox.maxZ).color(r, g, b, a).endVertex();
         worldrenderer.pos(boundingBox.minX, boundingBox.minY, boundingBox.maxZ).color(r, g, b, a).endVertex();
         worldrenderer.pos(boundingBox.minX, boundingBox.maxY, boundingBox.maxZ).color(r, g, b, a).endVertex();
-        tessellator.draw();
-    }
-
-    private void draw2DBox(float minX, float minY, float maxX, float maxY, float r, float g, float b, float a) {
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-
-        worldrenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION_COLOR);
-        worldrenderer.pos(minX, minY, 0.0D).color(r, g, b, a).endVertex();
-        worldrenderer.pos(maxX, minY, 0.0D).color(r, g, b, a).endVertex();
-        worldrenderer.pos(maxX, maxY, 0.0D).color(r, g, b, a).endVertex();
-        worldrenderer.pos(minX, maxY, 0.0D).color(r, g, b, a).endVertex();
-        worldrenderer.pos(minX, minY, 0.0D).color(r, g, b, a).endVertex();
         tessellator.draw();
     }
 }
